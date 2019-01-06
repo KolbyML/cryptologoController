@@ -4,14 +4,18 @@ import PIL
 from PIL import Image
 import git
 
+print('')
 print("started")
+print('')
 # Get path to Folders
 getcwd = getcwd()+"/cryptologo"
 masterPath = getcwd+"/master"
 smallerPath = getcwd+"/smaller"
 smallPath = getcwd+"/small"
 largePath = getcwd+"/large"
+print('')
 print(getcwd, " : Directery")
+print('')
 environ['GIT_ASKPASS'] = getcwd
 environ['GIT_USERNAME'] = "Mrmetech-s-Bot"
 environ['GIT_PASSWORD'] = "4a5e0a3bee39fb5eec93c3860a0650da7866351a"
@@ -20,7 +24,10 @@ environ['GIT_PASSWORD'] = "4a5e0a3bee39fb5eec93c3860a0650da7866351a"
 repo = git.Repo(getcwd)
 repo.git.stash()
 repo.git.pull()
+
+print('')
 print("stashed and pulled repos")
+print('')
 
 # Get list of photos in the folder
 masterList = [f for f in listdir(masterPath) if isfile(join(masterPath, f))]
@@ -38,7 +45,9 @@ missingSmaller = set(masterList).difference(smallerList)
 missingSmall = set(masterList).difference(smallList)
 missingLarge = set(masterList).difference(largeList)
 
+print('')
 print("made it to formating")
+print('')
 for smallerPhotosToFormat in missingSmaller:
     try:
         img = Image.open(masterPath+"/"+smallerPhotosToFormat)
@@ -46,7 +55,9 @@ for smallerPhotosToFormat in missingSmaller:
         wsize = int((float(img.size[0]) * float(hpercent)))
         img = img.resize((wsize, smallerSize), PIL.Image.ANTIALIAS)
         img.save(smallerPath+"/"+smallerPhotosToFormat, "PNG")
+        print('')
         print("formating smaller ", smallerPhotosToFormat)
+        print('')
     except IOError:
         print("cannot create thumbnail for '%s'" % smallerPhotosToFormat)
 
@@ -57,7 +68,9 @@ for smallPhotosToFormat in missingSmall:
         wsize = int((float(img.size[0]) * float(hpercent)))
         img = img.resize((wsize, smallerSize), PIL.Image.ANTIALIAS)
         img.save(smallerPath+"/"+smallPhotosToFormat, "PNG")
+        print('')
         print("formating small ", smallPhotosToFormat)
+        print('')
     except IOError:
         print("cannot create thumbnail for '%s'" % smallPhotosToFormat)
 
@@ -68,12 +81,24 @@ for largePhotosToFormat in missingLarge:
         wsize = int((float(img.size[0]) * float(hpercent)))
         img = img.resize((wsize, smallerSize), PIL.Image.ANTIALIAS)
         img.save(smallerPath+"/"+largePhotosToFormat, "PNG")
+        print('')
         print("formating large ", largePhotosToFormat)
+        print('')
     except IOError:
         print("cannot create thumbnail for '%s'" % largePhotosToFormat)
 
 
 print("done formatting")
-repo.git.commit('-a', '-m', "Committed new logos or updates")
-repo.git.push()
+try:
+    repo.git.commit('-a', '-m', "Committed new logos or updates")
+except Exception:
+    print('')
+    print('Already up to date no commit must be made')
+    print('')
+try:
+    repo.git.push()
+except Exception:
+    print('')
+    print('Already up to date no push must be made')
+    print('')
 print("FINISHED")
