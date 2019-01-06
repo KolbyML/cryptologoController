@@ -96,15 +96,15 @@ except Exception:
     print('')
     print('Already up to date no commit must be made')
     print('')
-    try:
-        repo.git.push()
-        if 'username' in argv[1].lower():
-            print(environ['GIT_USERNAME'])
-            exit()
+try:
+    repo.git.push()
+    if 'username' in argv[1].lower():
+        print(environ['GIT_USERNAME'])
+        exit()
 
-        if 'password' in argv[1].lower():
-            print(environ['GIT_PASSWORD'])
-            exit()
+    if 'password' in argv[1].lower():
+        print(environ['GIT_PASSWORD'])
+        exit()
 
 
 except Exception:
