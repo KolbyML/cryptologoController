@@ -16,7 +16,7 @@ largePath = getcwd+"/large"
 print('')
 print(getcwd, " : Directery")
 print('')
-environ['GIT_ASKPASS'] = getcwd
+environ['GIT_ASKPASS'] = join(getcwd, 'askpass.py')
 environ['GIT_USERNAME'] = "Mrmetech-s-Bot"
 environ['GIT_PASSWORD'] = "4a5e0a3bee39fb5eec93c3860a0650da7866351a"
 #g = git.cmd.Git(getcwd)
