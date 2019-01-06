@@ -1,8 +1,10 @@
 from os import listdir, getcwd, environ
 from os.path import isfile, join
+from sys import argv
+
 import PIL
-from PIL import Image
 import git
+from PIL import Image
 
 print('')
 print("started")
@@ -87,7 +89,6 @@ for largePhotosToFormat in missingLarge:
     except IOError:
         print("cannot create thumbnail for '%s'" % largePhotosToFormat)
 
-
 print("done formatting")
 try:
     repo.git.commit('-a', '-m', "Committed new logos or updates")
@@ -95,8 +96,17 @@ except Exception:
     print('')
     print('Already up to date no commit must be made')
     print('')
-try:
-    repo.git.push()
+    try:
+        repo.git.push()
+        if 'username' in argv[1].lower():
+            print(environ['GIT_USERNAME'])
+            exit()exit()exit()
+
+        if 'password' in argv[1].lower():
+            print(environ['GIT_PASSWORD'])
+            exit()
+
+
 except Exception:
     print('')
     print('Already up to date no push must be made')
