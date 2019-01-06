@@ -1,7 +1,5 @@
-from os import listdir, getcwd, environ
+from os import listdir, getcwd
 from os.path import isfile, join
-from sys import argv
-
 import PIL
 import git
 from PIL import Image
@@ -18,9 +16,7 @@ largePath = getcwd + "/large"
 print('')
 print(getcwd, " : Directery")
 print('')
-environ['GIT_ASKPASS'] = join(getcwd, 'askpass.py')
-environ['GIT_USERNAME'] = "Mrmetech-s-Bot"
-environ['GIT_PASSWORD'] = "4a5e0a3bee39fb5eec93c3860a0650da7866351a"
+
 # g = git.cmd.Git(getcwd)
 
 repo = git.Repo(getcwd)
@@ -99,14 +95,6 @@ except Exception:
     print('')
 try:
     repo.git.push()
-    if 'username' in argv[1].lower():
-        print(environ['GIT_USERNAME'])
-        exit()
-
-    if 'password' in argv[1].lower():
-        print(environ['GIT_PASSWORD'])
-        exit()
-
 
 except Exception:
     print('')
