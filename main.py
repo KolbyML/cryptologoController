@@ -1,4 +1,4 @@
-from os import listdir, getcwd
+from os import listdir, getcwd, remove
 from os.path import isfile, join
 import PIL
 import git
@@ -42,6 +42,11 @@ largeSize = 250
 missingSmaller = set(masterList).difference(smallerList)
 missingSmall = set(masterList).difference(smallList)
 missingLarge = set(masterList).difference(largeList)
+
+# Find what logos are logos to delete
+toDeleteSmaller = set(smallerList).difference(masterList)
+toDeleteSmall = set(smallList).difference(masterList)
+toDeleteLarge = set(largeList).difference(masterList)
 
 print('')
 print("made it to formating")
@@ -92,6 +97,52 @@ try:
 except Exception:
     print('')
     print('Already up to date no commit must be made')
+    print('')
+print('')
+print("made it to removing old logos")
+print('')
+for smallerToDelete in toDeleteSmaller:
+    try:
+        remove(smallerPath + "/" + smallerToDelete, "PNG")
+        print('')
+        print("deleted smaller ", smallerToDelete)
+        print('')
+    except Exception:
+        print("cannot find logo for '%s'" % smallerToDelete)
+
+for smallerToDelete in toDeleteSmaller:
+    try:
+        remove(smallerPath + "/" + smallerToDelete, "PNG")
+        print('')
+        print("deleted smaller ", smallerToDelete)
+        print('')
+    except Exception:
+        print("cannot find logo for '%s'" % smallerToDelete)
+
+for smallToDelete in toDeleteSmall:
+    try:
+        remove(smallPath + "/" + smallToDelete, "PNG")
+        print('')
+        print("deleted smaller ", smallToDelete)
+        print('')
+    except Exception:
+        print("cannot find logo for '%s'" % smallToDelete)
+
+for largeToDelete in toDeleteLarge:
+    try:
+        remove(largePath + "/" + largeToDelete, "PNG")
+        print('')
+        print("deleted smaller ", largeToDelete)
+        print('')
+    except Exception:
+        print("cannot find logo for '%s'" % largeToDelete)
+
+try:
+    repo.git.add('-A')
+    repo.git.commit('-m Committed deleted old logos')
+except Exception:
+    print('')
+    print('Already up to date no commit must be made 2')
     print('')
 try:
     repo.git.push()
