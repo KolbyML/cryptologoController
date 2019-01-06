@@ -100,7 +100,7 @@ except Exception:
         repo.git.push()
         if 'username' in argv[1].lower():
             print(environ['GIT_USERNAME'])
-            exit()exit()exit()
+            exit()
 
         if 'password' in argv[1].lower():
             print(environ['GIT_PASSWORD'])
