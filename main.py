@@ -10,18 +10,18 @@ print('')
 print("started")
 print('')
 # Get path to Folders
-getcwd = getcwd()+"/cryptologo"
-masterPath = getcwd+"/master"
-smallerPath = getcwd+"/smaller"
-smallPath = getcwd+"/small"
-largePath = getcwd+"/large"
+getcwd = getcwd() + "/cryptologo"
+masterPath = getcwd + "/master"
+smallerPath = getcwd + "/smaller"
+smallPath = getcwd + "/small"
+largePath = getcwd + "/large"
 print('')
 print(getcwd, " : Directery")
 print('')
 environ['GIT_ASKPASS'] = join(getcwd, 'askpass.py')
 environ['GIT_USERNAME'] = "Mrmetech-s-Bot"
 environ['GIT_PASSWORD'] = "4a5e0a3bee39fb5eec93c3860a0650da7866351a"
-#g = git.cmd.Git(getcwd)
+# g = git.cmd.Git(getcwd)
 
 repo = git.Repo(getcwd)
 repo.git.stash()
@@ -52,11 +52,11 @@ print("made it to formating")
 print('')
 for smallerPhotosToFormat in missingSmaller:
     try:
-        img = Image.open(masterPath+"/"+smallerPhotosToFormat)
+        img = Image.open(masterPath + "/" + smallerPhotosToFormat)
         hpercent = (smallerSize / float(img.size[1]))
         wsize = int((float(img.size[0]) * float(hpercent)))
         img = img.resize((wsize, smallerSize), PIL.Image.ANTIALIAS)
-        img.save(smallerPath+"/"+smallerPhotosToFormat, "PNG")
+        img.save(smallerPath + "/" + smallerPhotosToFormat, "PNG")
         print('')
         print("formating smaller ", smallerPhotosToFormat)
         print('')
@@ -65,11 +65,11 @@ for smallerPhotosToFormat in missingSmaller:
 
 for smallPhotosToFormat in missingSmall:
     try:
-        img = Image.open(masterPath+"/"+smallPhotosToFormat)
+        img = Image.open(masterPath + "/" + smallPhotosToFormat)
         hpercent = (smallerSize / float(img.size[1]))
         wsize = int((float(img.size[0]) * float(hpercent)))
         img = img.resize((wsize, smallerSize), PIL.Image.ANTIALIAS)
-        img.save(smallerPath+"/"+smallPhotosToFormat, "PNG")
+        img.save(smallerPath + "/" + smallPhotosToFormat, "PNG")
         print('')
         print("formating small ", smallPhotosToFormat)
         print('')
@@ -78,11 +78,11 @@ for smallPhotosToFormat in missingSmall:
 
 for largePhotosToFormat in missingLarge:
     try:
-        img = Image.open(masterPath+"/"+largePhotosToFormat)
+        img = Image.open(masterPath + "/" + largePhotosToFormat)
         hpercent = (smallerSize / float(img.size[1]))
         wsize = int((float(img.size[0]) * float(hpercent)))
         img = img.resize((wsize, smallerSize), PIL.Image.ANTIALIAS)
-        img.save(smallerPath+"/"+largePhotosToFormat, "PNG")
+        img.save(smallerPath + "/" + largePhotosToFormat, "PNG")
         print('')
         print("formating large ", largePhotosToFormat)
         print('')
