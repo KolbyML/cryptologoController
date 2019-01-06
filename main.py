@@ -65,11 +65,11 @@ for smallerPhotosToFormat in missingSmaller:
 
 for smallPhotosToFormat in missingSmall:
     try:
-        img = Image.open(masterPath + "/" + smallPhotosToFormat)
-        hpercent = (smallSize / float(img.size[1]))
-        wsize = int((float(img.size[0]) * float(hpercent)))
-        img = img.resize((wsize, smallSize), PIL.Image.ANTIALIAS)
-        img.save(smallPath + "/" + smallPhotosToFormat, "PNG")
+        imgS = Image.open(masterPath + "/" + smallPhotosToFormat)
+        hpercent = (smallSize / float(imgS.size[1]))
+        wsize = int((float(imgS.size[0]) * float(hpercent)))
+        imgS = imgS.resize((wsize, smallSize), PIL.Image.ANTIALIAS)
+        imgS.save(smallPath + "/" + smallPhotosToFormat, "PNG")
         print('')
         print("formating small ", smallPhotosToFormat)
         print('')
@@ -78,11 +78,11 @@ for smallPhotosToFormat in missingSmall:
 
 for largePhotosToFormat in missingLarge:
     try:
-        img = Image.open(masterPath + "/" + largePhotosToFormat)
-        hpercent = (largeSize / float(img.size[1]))
-        wsize = int((float(img.size[0]) * float(hpercent)))
-        img = img.resize((wsize, largeSize), PIL.Image.ANTIALIAS)
-        img.save(largePath + "/" + largePhotosToFormat, "PNG")
+        imgL = Image.open(masterPath + "/" + largePhotosToFormat)
+        hpercent = (largeSize / float(imgL.size[1]))
+        wsize = int((float(imgL.size[0]) * float(hpercent)))
+        imgL = imgL.resize((wsize, largeSize), PIL.Image.ANTIALIAS)
+        imgL.save(largePath + "/" + largePhotosToFormat, "PNG")
         print('')
         print("formating large ", largePhotosToFormat)
         print('')
