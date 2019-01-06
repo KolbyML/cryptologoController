@@ -91,7 +91,8 @@ for largePhotosToFormat in missingLarge:
 
 print("done formatting")
 try:
-    repo.git.commit('-a', '-m', "Committed new logos or updates")
+    repo.git.add('-A')
+    repo.git.commit('-m Committed new logos or updates')
 except Exception:
     print('')
     print('Already up to date no commit must be made')
