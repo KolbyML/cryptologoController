@@ -15,11 +15,11 @@ smallPath = getcwd + "/small"
 largePath = getcwd + "/large"
 replacePath = getcwd + "/replaceOldLogo"
 listOfPaths = [masterPath, smallerPath, smallPath, largePath]
+multiUseListOfPaths = [smallerPath, smallPath, largePath]
+
 print('')
 print(getcwd, " : Directery")
 print('')
-
-# g = git.cmd.Git(getcwd)
 
 repo = git.Repo(getcwd)
 repo.git.stash()
@@ -66,58 +66,39 @@ largeList = [f for f in listdir(largePath) if isfile(join(largePath, f))]
 smallerSize = 25
 smallSize = 50
 largeSize = 250
+sizes = [smallerSize, smallSize, largeSize]
 
 # Find what logos are missing in the folder
 missingSmaller = set(masterList).difference(smallerList)
 missingSmall = set(masterList).difference(smallList)
 missingLarge = set(masterList).difference(largeList)
-
+missing = [missingSmaller, missingSmall, missingLarge]
 # Find what logos are logos to delete
 toDeleteSmaller = set(smallerList).difference(masterList)
 toDeleteSmall = set(smallList).difference(masterList)
 toDeleteLarge = set(largeList).difference(masterList)
+toDelete = [toDeleteSmaller, toDeleteSmall, toDeleteLarge]
 
 print('')
 print("made it to formating")
 print('')
-for smallerPhotosToFormat in missingSmaller:
-    try:
-        img = Image.open(masterPath + "/" + smallerPhotosToFormat)
-        hpercent = (smallerSize / float(img.size[1]))
-        wsize = int((float(img.size[0]) * float(hpercent)))
-        img = img.resize((wsize, smallerSize), PIL.Image.ANTIALIAS)
-        img.save(smallerPath + "/" + smallerPhotosToFormat, "PNG")
-        print('')
-        print("formating smaller ", smallerPhotosToFormat)
-        print('')
-    except IOError:
-        print("cannot create thumbnail for '%s'" % smallerPhotosToFormat)
 
-for smallPhotosToFormat in missingSmall:
+for i in range(len(missing)):
     try:
-        imgS = Image.open(masterPath + "/" + smallPhotosToFormat)
-        hpercent = (smallSize / float(imgS.size[1]))
-        wsize = int((float(imgS.size[0]) * float(hpercent)))
-        imgS = imgS.resize((wsize, smallSize), PIL.Image.ANTIALIAS)
-        imgS.save(smallPath + "/" + smallPhotosToFormat, "PNG")
-        print('')
-        print("formating small ", smallPhotosToFormat)
-        print('')
+        for ii in range(len(missing[i])):
+            try:
+                img = Image.open(masterPath + "/" + missing[i][ii])
+                hpercent = (sizes[i] / float(img.size[1]))
+                wsize = int((float(img.size[0]) * float(hpercent)))
+                img = img.resize((wsize, sizes[i]), PIL.Image.ANTIALIAS)
+                img.save(multiUseListOfPaths[i] + "/" + missing[i][ii], "PNG")
+                print('')
+                print("formating smaller ", missing[i][ii])
+                print('')
+            except Exception:
+                print("cannot 1 create thumbnail for '%s'" % missing[i][ii])
     except IOError:
-        print("cannot create thumbnail for '%s'" % smallPhotosToFormat)
-
-for largePhotosToFormat in missingLarge:
-    try:
-        imgL = Image.open(masterPath + "/" + largePhotosToFormat)
-        hpercent = (largeSize / float(imgL.size[1]))
-        wsize = int((float(imgL.size[0]) * float(hpercent)))
-        imgL = imgL.resize((wsize, largeSize), PIL.Image.ANTIALIAS)
-        imgL.save(largePath + "/" + largePhotosToFormat, "PNG")
-        print('')
-        print("formating large ", largePhotosToFormat)
-        print('')
-    except IOError:
-        print("cannot create thumbnail for '%s'" % largePhotosToFormat)
+        print("cannot 2 create thumbnail for '%s'" % missing[i])
 
 print("done formatting")
 try:
@@ -130,32 +111,21 @@ except Exception:
 print('')
 print("made it to removing old logos")
 print('')
-for smallerToDelete in toDeleteSmaller:
-    try:
-        remove(smallerPath + "/" + smallerToDelete)
-        print('')
-        print("deleted smaller ", smallerToDelete)
-        print('')
-    except Exception:
-        print("cannot find logo for '%s'" % smallerToDelete)
 
-for smallToDelete in toDeleteSmall:
-    try:
-        remove(smallPath + "/" + smallToDelete)
-        print('')
-        print("deleted smaller ", smallToDelete)
-        print('')
-    except Exception:
-        print("cannot find logo for '%s'" % smallToDelete)
+# deleteListOfPaths = [smallerPath, smallPath, largePath]
 
-for largeToDelete in toDeleteLarge:
+for i in range(len(toDelete)):
     try:
-        remove(largePath + "/" + largeToDelete)
-        print('')
-        print("deleted smaller ", largeToDelete)
-        print('')
+        for ii in range(len(toDelete[i])):
+            try:
+                remove(multiUseListOfPaths[i] + "/" + toDelete[i][ii])
+                print('')
+                print("deleted smaller ", toDelete[i][ii])
+                print('')
+            except Exception:
+                print("cannot 1 find logo for '%s'" % toDelete[i][ii])
     except Exception:
-        print("cannot find logo for '%s'" % largeToDelete)
+        print("cannot  2 find logo for '%s'" % toDelete[i])
 
 try:
     repo.git.add('-A')
@@ -166,7 +136,6 @@ except Exception:
     print('')
 try:
     repo.git.push()
-
 except Exception:
     print('')
     print('Already up to date no push must be made')
