@@ -112,7 +112,7 @@ for smallerToDelete in toDeleteSmaller:
 
 for smallerToDelete in toDeleteSmaller:
     try:
-        remove(smallerPath + "/" + smallerToDelete, "PNG")
+        remove(smallerPath + "/" + smallerToDelete)
         print('')
         print("deleted smaller ", smallerToDelete)
         print('')
@@ -121,7 +121,7 @@ for smallerToDelete in toDeleteSmaller:
 
 for smallToDelete in toDeleteSmall:
     try:
-        remove(smallPath + "/" + smallToDelete, "PNG")
+        remove(smallPath + "/" + smallToDelete)
         print('')
         print("deleted smaller ", smallToDelete)
         print('')
@@ -130,7 +130,7 @@ for smallToDelete in toDeleteSmall:
 
 for largeToDelete in toDeleteLarge:
     try:
-        remove(largePath + "/" + largeToDelete, "PNG")
+        remove(largePath + "/" + largeToDelete)
         print('')
         print("deleted smaller ", largeToDelete)
         print('')
