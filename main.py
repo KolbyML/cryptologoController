@@ -69,14 +69,14 @@ largeSize = 250
 sizes = [smallerSize, smallSize, largeSize]
 
 # Find what logos are missing in the folder
-missingSmaller = set(masterList).difference(smallerList)
-missingSmall = set(masterList).difference(smallList)
-missingLarge = set(masterList).difference(largeList)
+missingSmaller = list(set(masterList).difference(smallerList))
+missingSmall = list(set(masterList).difference(smallList))
+missingLarge = list(set(masterList).difference(largeList))
 missing = [missingSmaller, missingSmall, missingLarge]
 # Find what logos are logos to delete
-toDeleteSmaller = set(smallerList).difference(masterList)
-toDeleteSmall = set(smallList).difference(masterList)
-toDeleteLarge = set(largeList).difference(masterList)
+toDeleteSmaller = list(set(smallerList).difference(masterList))
+toDeleteSmall = list(set(smallList).difference(masterList))
+toDeleteLarge = list(set(largeList).difference(masterList))
 toDelete = [toDeleteSmaller, toDeleteSmall, toDeleteLarge]
 
 print('')
