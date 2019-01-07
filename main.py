@@ -1,4 +1,4 @@
-from os import listdir, getcwd, remove
+from os import listdir, getcwd, remove, rename
 from os.path import isfile, join
 import PIL
 import git
@@ -13,6 +13,8 @@ masterPath = getcwd + "/master"
 smallerPath = getcwd + "/smaller"
 smallPath = getcwd + "/small"
 largePath = getcwd + "/large"
+replacePath = getcwd + "/ReplaceOldLogo"
+listOfPaths = [masterPath, smallerPath, smallPath, largePath]
 print('')
 print(getcwd, " : Directery")
 print('')
@@ -26,12 +28,32 @@ repo.git.pull()
 print('')
 print("stashed and pulled repos")
 print('')
+replaceList = [f for f in listdir(replacePath) if isfile(join(replacePath, f))]
+
+for listToReplace in replaceList:
+    try:
+        for listsPaths in listOfPaths:
+            try:
+                remove(listsPaths + "/" + listToReplace)
+                print('')
+                print("deleted smaller ", listToReplace)
+                print('')
+            except Exception:
+                print("cannot 1 find logo for '%s'" % listToReplace)
+        rename(replacePath + "/" + listToReplace, masterPath + "/" + listToReplace)
+    except Exception:
+        print("cannot 2 find logo for '%s'" % listToReplace)
+
+
+
+
 
 # Get list of photos in the folder
 masterList = [f for f in listdir(masterPath) if isfile(join(masterPath, f))]
 smallerList = [f for f in listdir(smallerPath) if isfile(join(smallerPath, f))]
 smallList = [f for f in listdir(smallPath) if isfile(join(smallPath, f))]
 largeList = [f for f in listdir(largePath) if isfile(join(largePath, f))]
+
 
 # Base Height Size
 smallerSize = 25
@@ -101,15 +123,6 @@ except Exception:
 print('')
 print("made it to removing old logos")
 print('')
-for smallerToDelete in toDeleteSmaller:
-    try:
-        remove(smallerPath + "/" + smallerToDelete, "PNG")
-        print('')
-        print("deleted smaller ", smallerToDelete)
-        print('')
-    except Exception:
-        print("cannot find logo for '%s'" % smallerToDelete)
-
 for smallerToDelete in toDeleteSmaller:
     try:
         remove(smallerPath + "/" + smallerToDelete)
