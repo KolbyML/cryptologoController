@@ -13,7 +13,7 @@ masterPath = getcwd + "/master"
 smallerPath = getcwd + "/smaller"
 smallPath = getcwd + "/small"
 largePath = getcwd + "/large"
-replacePath = getcwd + "/ReplaceOldLogo"
+replacePath = getcwd + "/replaceOldLogo"
 listOfPaths = [masterPath, smallerPath, smallPath, largePath]
 print('')
 print(getcwd, " : Directery")
