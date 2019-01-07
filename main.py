@@ -44,16 +44,20 @@ for listToReplace in replaceList:
     except Exception:
         print("cannot 2 find logo for '%s'" % listToReplace)
 
-
-
-
+print("done formatting")
+try:
+    repo.git.add('-A')
+    repo.git.commit('-m Committed replaced old logos')
+except Exception:
+    print('')
+    print('Already up to date no commit must be made')
+    print('')
 
 # Get list of photos in the folder
 masterList = [f for f in listdir(masterPath) if isfile(join(masterPath, f))]
 smallerList = [f for f in listdir(smallerPath) if isfile(join(smallerPath, f))]
 smallList = [f for f in listdir(smallPath) if isfile(join(smallPath, f))]
 largeList = [f for f in listdir(largePath) if isfile(join(largePath, f))]
-
 
 # Base Height Size
 smallerSize = 25
