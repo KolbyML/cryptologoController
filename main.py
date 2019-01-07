@@ -32,15 +32,18 @@ replaceList = [f for f in listdir(replacePath) if isfile(join(replacePath, f))]
 
 for listToReplace in replaceList:
     try:
-        for listsPaths in listOfPaths:
-            try:
-                remove(listsPaths + "/" + listToReplace)
-                print('')
-                print("deleted smaller ", listToReplace)
-                print('')
-            except Exception:
-                print("cannot 1 find logo for '%s'" % listToReplace)
-        rename(replacePath + "/" + listToReplace, masterPath + "/" + listToReplace)
+        if listToReplace == "deleteDD":
+            pass
+        else:
+            for listsPaths in listOfPaths:
+                try:
+                    remove(listsPaths + "/" + listToReplace)
+                    print('')
+                    print("deleted smaller ", listToReplace)
+                    print('')
+                except Exception:
+                    print("cannot 1 find logo for '%s'" % listToReplace)
+            rename(replacePath + "/" + listToReplace, masterPath + "/" + listToReplace)
     except Exception:
         print("cannot 2 find logo for '%s'" % listToReplace)
 
