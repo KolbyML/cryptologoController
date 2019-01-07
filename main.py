@@ -32,7 +32,7 @@ replaceList = [f for f in listdir(replacePath) if isfile(join(replacePath, f))]
 
 for listToReplace in replaceList:
     try:
-        if listToReplace == "deleteDD":
+        if listToReplace == "delete":
             pass
         else:
             for listsPaths in listOfPaths:
